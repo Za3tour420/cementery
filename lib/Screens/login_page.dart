@@ -78,6 +78,7 @@ class LoginPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     try {
+                      
                       if (emailController.text.isEmpty ||
                           passwordController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -91,8 +92,8 @@ class LoginPage extends StatelessWidget {
                           password: passwordController.text.trim(),
                         );
                         // Check if the user exists in the database
-                        final result = await loginUser(user);
-                        if (result == 'welcome') {
+                        final LoginResponse result = await loginUser(user);
+                        if (result.success == true) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Connected successfully!')),
@@ -100,12 +101,12 @@ class LoginPage extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MainPage(title: 'Carte')),
+                                builder: (context) => MainPage(title: 'Carte', user: result.user )),
                           );
                         } else {
                           // Print the result into a  red flutter toast
                           Fluttertoast.showToast(
-                            msg: result,
+                            msg: result.message,
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                             timeInSecForIosWeb: 1,

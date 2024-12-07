@@ -4,6 +4,28 @@ import '../models/User.dart';
 import 'mongodb.dart';
 import 'package:bcrypt/bcrypt.dart';
 
+class UserResp {
+  final String username;
+  final String email;
+
+  UserResp(this.username, this.email);
+
+  factory UserResp.fromJson(Map<String, dynamic> json) {
+    return UserResp(
+      json['username'] ?? '',
+      json['email'] ?? '',
+    );
+  }
+}
+class LoginResponse {
+  final UserResp? user;
+  final String message;
+  final bool success;
+
+  LoginResponse(this.user, this.message, this.success);
+  
+}
+
 // Create User
 Future<void> createUser(User user) async {
   if (!user.isValid()) {
@@ -25,10 +47,34 @@ Future<void> createUser(User user) async {
 }
 
 // Login User 
-Future<String> loginUser(LoginUser loginUser) async {
-  if (!loginUser.isValid()) {
-    return 'Invalid login data. Ensure all fields are provided.';
+// Future<String> loginUser(LoginUser loginUser) async {
+//   if (!loginUser.isValid()) {
+//     return 'Invalid login data. Ensure all fields are provided.';
     
+//   }
+
+//   print('Login Data: ${loginUser.toJson()}');
+//   try {
+//     // Fetch the user from MongoDB
+//     final user = await MongoDatabase.userCollection.findOne(where.eq('email', loginUser.email));
+//     if (user == null) {
+//       return 'User not found';
+//     }
+
+//     // Check if the password matches
+//     final isValidPassword = BCrypt.checkpw(loginUser.password, user['password']);
+//     if (!isValidPassword) {
+//       return 'Invalid password';
+//     }
+//     return ('Welcome');
+//   } catch (e) {
+//     return 'Failed to login: ';
+//   }
+// }
+
+Future<LoginResponse> loginUser(LoginUser loginUser) async {
+  if (!loginUser.isValid()) {
+    return LoginResponse(null, 'Invalid login data. Ensure all fields are provided.', false);
   }
 
   print('Login Data: ${loginUser.toJson()}');
@@ -36,17 +82,16 @@ Future<String> loginUser(LoginUser loginUser) async {
     // Fetch the user from MongoDB
     final user = await MongoDatabase.userCollection.findOne(where.eq('email', loginUser.email));
     if (user == null) {
-      return 'User not found';
+      return LoginResponse(null, 'User not found', false);
     }
 
     // Check if the password matches
     final isValidPassword = BCrypt.checkpw(loginUser.password, user['password']);
     if (!isValidPassword) {
-      return 'Invalid password';
+      return LoginResponse(null, 'Invalid password', false);
     }
-
-    return ('Welcome');
+    return LoginResponse(UserResp.fromJson(user), 'Welcome', true);
   } catch (e) {
-    return 'Failed to login: ';
+    return LoginResponse(null, 'Failed to login: $e', false);
   }
 }

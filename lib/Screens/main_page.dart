@@ -1,13 +1,16 @@
 import 'package:cementery/Screens/product_list_page.dart';
+import 'package:cementery/dbHelper/user_crud.dart';
+import 'package:cementery/models/LoginUser.dart';
+import 'package:cementery/models/user.dart';
 
 import 'login_page.dart';
 import 'package:flutter/material.dart';
 import 'MapScreen.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({super.key, required this.title});
-
+  MainPage({super.key, required this.title, this.user});
   String title;
+  UserResp? user;
 
   void setTitle(String title) {
     this.title = title;
@@ -18,7 +21,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MainPage> {
-
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -72,8 +74,8 @@ class _MyHomePageState extends State<MainPage> {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              accountName: const Text('Username'),
-              accountEmail: const Text('user@example.com'),
+              accountName: Text(widget.user?.username ?? 'Guest'),
+              accountEmail: Text(widget.user?.email ?? 'guest@example.com'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
                 child: ClipOval(
@@ -168,7 +170,6 @@ class _MyHomePageState extends State<MainPage> {
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),
                 );
-               
               },
             ),
           ],

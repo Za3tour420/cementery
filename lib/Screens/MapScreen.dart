@@ -160,19 +160,15 @@ class _MapScreenState extends State<MapScreen> {
                   for (var client in clients)
                     Marker(
                         point: client.location,
-                        child: Row(
-                          children: [
-                            Icon(Icons.location_on),
-                            const SizedBox(width: 20),
-                            Column(
-                              children: [
-                                Text(client.name),
-                                Text(client.address),
-                              ],
-                            )
-                        
-                            
-                          ],
+                        child: Container(
+                          child: Column(
+
+                            children: [
+                              Icon(Icons.location_on),
+                              const SizedBox(width: 3),
+                              Text(client.name)
+                            ],
+                          ),
                         ))
                 ],
               )
