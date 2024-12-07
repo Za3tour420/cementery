@@ -1,7 +1,5 @@
 import 'package:cementery/Screens/product_list_page.dart';
 import 'package:cementery/dbHelper/user_crud.dart';
-import 'package:cementery/models/LoginUser.dart';
-import 'package:cementery/models/user.dart';
 
 import 'login_page.dart';
 import 'package:flutter/material.dart';

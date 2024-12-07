@@ -7,7 +7,7 @@ import 'update_product_page.dart';
 import 'insert_product_page.dart';
 
 class ProductListPage extends StatefulWidget {
-  const ProductListPage({Key? key}) : super(key: key);
+  const ProductListPage({super.key});
   @override
   _ProductListPageState createState() => _ProductListPageState();
 }
@@ -118,9 +118,9 @@ class _ProductListPageState extends State<ProductListPage> {
             ),
           ).then((_) => fetchProducts());
         },
-        child: Icon(Icons.add),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        child: Icon(Icons.add),
       ),
     );
   }

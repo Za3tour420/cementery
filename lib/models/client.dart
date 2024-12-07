@@ -1,36 +1,81 @@
+import 'dart:ffi';
+
 import 'package:mongo_dart/mongo_dart.dart';
 
-class Product {
+class Client {
   ObjectId mongoId; // MongoDB _id field
-  String id; // User-entered product ID
-  String designation;
+  String type; // G, D ou NC
+  String responsable;
+  Int telephone;
+  String gouvernorat;
+  String delegation;
+  String adresse;
+  String email;
+  String cimenterie;
+  List<ObjectId> produits;
+  Double prix;
 
-  Product({
+  Client({
     required this.mongoId,
-    required this.id,
-    required this.designation,
+    required this.type,
+    required this.responsable,
+    required this.telephone,
+    required this.gouvernorat,
+    required this.delegation,
+    required this.adresse,
+    required this.email,
+    required this.cimenterie,
+    required this.produits,
+    required this.prix,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  factory Client.fromJson(Map<String, dynamic> json) {
     // Check and print out the raw JSON for debugging
-    print('Parsing product JSON: $json');
+    print('Parsing client JSON: $json');
 
     // Parse the JSON data, ensuring non-null fields are properly handled
-    return Product(
-      mongoId: json["_id"] as ObjectId,
-      id: json["id"] ?? '', // Use a default empty string if null
-      designation: json["designation"] ?? '', // Use a default empty string if null
-    );
+    return Client(
+        mongoId: json["_id"] as ObjectId,
+        type: json["id"] ?? '', // Use a default empty string if null
+        responsable:
+            json["responsable"] ?? '', // Use a default empty string if null
+        telephone: json["telephone"] ?? '',
+        gouvernorat: json["gouvernorat"] ?? '',
+        delegation: json["delegation"] ?? '',
+        adresse: json["adresse"] ?? '',
+        email: json["email"] ?? '',
+        cimenterie: json["cimenterie"] ?? '',
+        produits: json["produits"] ?? '',
+        prix: json["prix"] ?? '' // Use a default empty string if null
+        );
   }
 
   Map<String, dynamic> toJson() => {
         "_id": mongoId, // MongoDB _id field
-        "id": id, // User-entered ID
-        "designation": designation,
+        "type": type,
+        "responsable": responsable,
+        "telephone": telephone,
+        "gouvernorat": gouvernorat,
+        "delegation": delegation,
+        "adresse": adresse,
+        "email": email,
+        "cimenterie": cimenterie,
+        "produits": produits,
+        "prix": prix,
       };
 
   // Method to check if the required fields are valid
   bool isValid() {
-    return id.isNotEmpty && designation.isNotEmpty;
+    return type.isNotEmpty &&
+        responsable.isNotEmpty &&
+        telephone.toString().isEmpty &&
+        gouvernorat.isNotEmpty &&
+        delegation.isNotEmpty &&
+        adresse.isNotEmpty &&
+        cimenterie.isNotEmpty &&
+        email.isNotEmpty &&
+        produits.isNotEmpty &&
+        prix.toString().isNotEmpty;
   }
+  
 }

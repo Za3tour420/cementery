@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Cbox extends StatefulWidget {
+  const Cbox({super.key});
+
   @override
   _CboxState createState() => _CboxState();
 }

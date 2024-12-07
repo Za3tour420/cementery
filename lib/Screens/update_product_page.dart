@@ -6,7 +6,7 @@ import '../models/product.dart';
 class UpdateProductPage extends StatefulWidget {
   final Product product;
 
-  UpdateProductPage({required this.product});
+  const UpdateProductPage({super.key, required this.product});
 
   @override
   _UpdateProductPageState createState() => _UpdateProductPageState();
