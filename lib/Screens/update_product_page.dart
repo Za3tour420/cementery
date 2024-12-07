@@ -39,6 +39,15 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
         designation: _designationController.text,
       );
       await updateProduct(updatedProduct);
+      Fluttertoast.showToast(
+                  msg: "Successfully updated product ${updatedProduct.id} ${updatedProduct.designation}",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
       Navigator.pop(context);
     }
   }
