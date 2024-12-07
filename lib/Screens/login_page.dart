@@ -1,12 +1,19 @@
+import 'dart:math';
+
+import 'package:cementery/models/LoginUser.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'main_page.dart';
 import 'signup_page.dart';
 import 'package:cementery/dbHelper/mongodb.dart';
 import '../Widgets/Cbox.dart';
 import 'forgot_password_page.dart';
+import '../dbHelper/user_crud.dart';
 // Import the MongoDB helper
 
 class LoginPage extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   LoginPage({super.key});
 
   final FocusNode _usernameFocusNode = FocusNode();
@@ -30,6 +37,7 @@ class LoginPage extends StatelessWidget {
                 TextField(
                   focusNode: _usernameFocusNode,
                   autofocus: true,
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
@@ -37,6 +45,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 TextField(
+                  controller: passwordController,
                   decoration: const InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
@@ -69,20 +78,44 @@ class LoginPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     try {
-                      // This will ensure the connection is established or reused
-                      await MongoDatabase.connect();
-
-                      // Display a success message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Connected successfully!')),
-                      );
-
-                      // Navigate to the MainPage after successful connection
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MainPage(title: 'Carte')),
-                      );
+                      if (emailController.text.isEmpty ||
+                          passwordController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Please fill in all fields')),
+                        );
+                        return;
+                      } else {
+                        final LoginUser user = LoginUser(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
+                        // Check if the user exists in the database
+                        final result = await loginUser(user);
+                        if (result == 'welcome') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Connected successfully!')),
+                          );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainPage(title: 'Carte')),
+                          );
+                        } else {
+                          // Print the result into a  red flutter toast
+                          Fluttertoast.showToast(
+                            msg: result,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        }
+                      
+                      }
                     } catch (e) {
                       // Display an error message
                       ScaffoldMessenger.of(context).showSnackBar(

@@ -11,9 +11,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   void _resetPassword() {
     final email = _emailController.text;
     if (email.isNotEmpty) {
-      // Implement password reset logic here
+      // Check if email is valid and send password reset code
+      // if mail is valid move to a page where it asks for the sent code if the code is correct then move to a page where the user can reset the password
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Password reset link sent to $email')),
+        SnackBar(content: Text('Password reset code sent to $email')),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

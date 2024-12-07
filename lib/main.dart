@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'dbHelper/mongodb.dart';
 import 'screens/login_page.dart';
 
-void main()  {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
+  await MongoDatabase.connect();
 }
 
 class MyApp extends StatelessWidget {
