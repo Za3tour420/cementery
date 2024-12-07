@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../dbHelper/client_crud.dart';
-import '../models/client.dart';
-import 'update_client_page.dart';
-import 'insert_client_page.dart';
+import '../dbHelper/visit_crud.dart';
+import '../models/visit.dart';
+import 'update_visit_page.dart';
+import 'insert_visit_page.dart';
 
-class ClientListPage extends StatefulWidget {
-  const ClientListPage({super.key});
+class VisitListPage extends StatefulWidget {
+  const VisitListPage({super.key});
 
   @override
-  _ClientListPageState createState() => _ClientListPageState();
+  _VisitListPageState createState() => _VisitListPageState();
 }
 
-class _ClientListPageState extends State<ClientListPage> {
-  List<Client> clientList = [];
-  late final bool useMaterial3;
+class _VisitListPageState extends State<VisitListPage> {
+  List<Visit> visitList = [];
 
   @override
   void initState() {
     super.initState();
-    fetchClients();
+    fetchVisits();
   }
 
-  Future<void> fetchClients() async {
-    clientList = await getAllClients();
+  // Fetch all visits from the database
+  Future<void> fetchVisits() async {
+    visitList = await getAllVisits();
     setState(() {});
   }
 
-  Future<void> _showDeleteConfirmationDialog(Client client) async {
+  // Show delete confirmation dialog
+  Future<void> _showDeleteConfirmationDialog(Visit visit) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // User must tap button!
@@ -37,8 +38,7 @@ class _ClientListPageState extends State<ClientListPage> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text(
-                    'Are you sure you want to delete the client "${client.type} ${client.responsable}"?'),
+                Text('Are you sure you want to delete the visit for "${visit.client}"?'),
               ],
             ),
           ),
@@ -53,10 +53,9 @@ class _ClientListPageState extends State<ClientListPage> {
               child: Text('Delete'),
               onPressed: () async {
                 Navigator.of(context).pop();
-                await deleteClient(client.mongoId);
+                await deleteVisit(visit.mongoId!);
                 Fluttertoast.showToast(
-                  msg:
-                      "Successfully deleted client ${client.type} ${client.responsable}",
+                  msg: "Successfully deleted visit for ${visit.client}",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 1,
@@ -64,7 +63,7 @@ class _ClientListPageState extends State<ClientListPage> {
                   textColor: Colors.white,
                   fontSize: 16.0,
                 );
-                fetchClients();
+                fetchVisits(); // Refresh the list after deletion
               },
             ),
           ],
@@ -76,33 +75,37 @@ class _ClientListPageState extends State<ClientListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: clientList.isEmpty
-          ? Center(child: Text('No clients available'))
+      appBar: AppBar(
+        title: Text('Visits'),
+      ),
+      body: visitList.isEmpty
+          ? Center(child: Text('No visits available'))
           : ListView.builder(
-              itemCount: clientList.length,
+              itemCount: visitList.length,
               itemBuilder: (context, index) {
-                final client = clientList[index];
+                final visit = visitList[index];
                 return ListTile(
-                  title: Text(client.type),
-                  subtitle: Text('Responsable: ${client.responsable}'),
+                  title: Text('Client: ${visit.client}'),
+                  subtitle: Text('Date: ${visit.date.toIso8601String()}'),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      // Edit visit
                       IconButton(
                         icon: Icon(Icons.edit, color: Colors.blue),
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  UpdateClientPage(client: client),
+                              builder: (context) => UpdateVisitPage(visit: visit),
                             ),
-                          ).then((_) => fetchClients());
+                          ).then((_) => fetchVisits());
                         },
                       ),
+                      // Delete visit
                       IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
-                        onPressed: () => _showDeleteConfirmationDialog(client),
+                        onPressed: () => _showDeleteConfirmationDialog(visit),
                       ),
                     ],
                   ),
@@ -114,9 +117,9 @@ class _ClientListPageState extends State<ClientListPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => InsertClientPage(),
+              builder: (context) => InsertVisitPage(),
             ),
-          ).then((_) => fetchClients());
+          ).then((_) => fetchVisits()); // Refresh the list after inserting a new visit
         },
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,

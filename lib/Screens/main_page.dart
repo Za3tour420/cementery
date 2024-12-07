@@ -1,4 +1,5 @@
 import 'package:cementery/Screens/product_list_page.dart';
+import 'package:cementery/Screens/client_list_page.dart';
 import 'package:cementery/dbHelper/user_crud.dart';
 
 import 'login_page.dart';
@@ -28,10 +29,7 @@ class _MyHomePageState extends State<MainPage> {
       'Index 1: Visites',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: Clients',
-      style: optionStyle,
-    ),
+    ClientListPage(),
     ProductListPage(),
     Text(
       'Index 4: Statistique',

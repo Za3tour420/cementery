@@ -6,3 +6,4 @@ const MONGO_CONN_URL =
 const PRODUCT_COLLECTION = "produits";
 const USER_COLLECTION = "users";
 const CLIENT_COLLECTION = "clients";
+const VISIT_COLLECTION = "visites";

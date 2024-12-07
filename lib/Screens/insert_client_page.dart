@@ -23,7 +23,7 @@ class InsertClientPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Insert Client')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -91,10 +91,19 @@ class InsertClientPage extends StatelessWidget {
                   adresse: adresseController.text.trim(),
                   email: emailController.text.trim(),
                   cimenterie: cimenterieController.text.trim(),
-                  produits: produitsController.text.trim().split(',').map((e) => ObjectId.parse(e.trim())).toList(),
+                  produits: produitsController.text.trim(),
                   prix: double.tryParse(prixController.text.trim()) ?? 0.0,
                 );
                 await createClient(client);
+                Fluttertoast.showToast(
+                  msg: "Successfully inserted product ${client.type} ${client.responsable}",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
                 Navigator.pop(context);
               },
               child: Text('Insert'),
