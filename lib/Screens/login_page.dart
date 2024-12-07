@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'main_page.dart';
 import 'signup_page.dart';
-import 'package:cementery/dbHelper/mongodb.dart'; // Import the MongoDB helper
+import 'package:cementery/dbHelper/mongodb.dart';
+import '../Widgets/Cbox.dart';
+import 'forgot_password_page.dart';
+// Import the MongoDB helper
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -46,16 +49,17 @@ class LoginPage extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Checkbox(
-                          value: false,
-                          onChanged: (bool? value) {},
-                        ),
+                        Cbox(),
                         const Text('Se souvenir de moi'),
                       ],
                     ),
                     TextButton(
                       onPressed: () {
-                        // Handle forgot password logic here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPasswordPage()),
+                        );
                       },
                       child: const Text('Mot de passe oublié ?'),
                     ),
@@ -76,7 +80,8 @@ class LoginPage extends StatelessWidget {
                       // Navigate to the MainPage after successful connection
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => MainPage()),
+                        MaterialPageRoute(
+                            builder: (context) => MainPage(title: 'Carte')),
                       );
                     } catch (e) {
                       // Display an error message

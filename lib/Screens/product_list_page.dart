@@ -1,16 +1,20 @@
+import 'package:cementery/Screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../dbHelper/product_crud.dart';
 import '../models/product.dart';
 import 'update_product_page.dart';
+import 'insert_product_page.dart';
 
 class ProductListPage extends StatefulWidget {
+  const ProductListPage({Key? key}) : super(key: key);
   @override
   _ProductListPageState createState() => _ProductListPageState();
 }
 
 class _ProductListPageState extends State<ProductListPage> {
   List<Product> productList = [];
+  late final bool useMaterial3;
 
   @override
   void initState() {
@@ -33,7 +37,8 @@ class _ProductListPageState extends State<ProductListPage> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Are you sure you want to delete the product "${product.designation}"?'),
+                Text(
+                    'Are you sure you want to delete the product "${product.designation}"?'),
               ],
             ),
           ),
@@ -50,7 +55,8 @@ class _ProductListPageState extends State<ProductListPage> {
                 Navigator.of(context).pop();
                 await deleteProduct(product.mongoId);
                 Fluttertoast.showToast(
-                  msg: "Successfully deleted product ${product.id} ${product.designation}",
+                  msg:
+                      "Successfully deleted product ${product.id} ${product.designation}",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 1,
@@ -70,7 +76,6 @@ class _ProductListPageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Product List')),
       body: productList.isEmpty
           ? Center(child: Text('No products available'))
           : ListView.builder(
@@ -89,7 +94,8 @@ class _ProductListPageState extends State<ProductListPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => UpdateProductPage(product: product),
+                              builder: (context) =>
+                                  UpdateProductPage(product: product),
                             ),
                           ).then((_) => fetchProducts());
                         },
@@ -103,6 +109,19 @@ class _ProductListPageState extends State<ProductListPage> {
                 );
               },
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InsertProductPage(),
+            ),
+          ).then((_) => fetchProducts());
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
     );
   }
 }
