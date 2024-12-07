@@ -7,7 +7,7 @@ class MongoDatabase {
   static late DbCollection productCollection;
   static late DbCollection userCollection;
   static late DbCollection clientCollection;
-  static late DbCollection visiteCollection;
+  static late DbCollection visitCollection;
 
   static Future<void> connect() async {
     db = await Db.create(MONGO_CONN_URL);
@@ -16,6 +16,6 @@ class MongoDatabase {
     productCollection = db.collection(PRODUCT_COLLECTION);
     userCollection = db.collection(USER_COLLECTION);
     clientCollection = db.collection(CLIENT_COLLECTION);
-    visiteCollection = db.collection(VISITE_COLLECTION);
+    visitCollection = db.collection(VISIT_COLLECTION);
   }
 }

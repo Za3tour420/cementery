@@ -8,7 +8,7 @@ Future<void> createProduct(Product product) async {
     print('Invalid product data. Ensure both ID and designation are provided.');
     return;
   }
-  
+
   print('Product Data: ${product.toJson()}');
   try {
     // Insert the product into MongoDB
@@ -24,7 +24,7 @@ Future<List<Product>> getAllProducts() async {
   try {
     // Fetch all products and map them to Product objects
     final result = await MongoDatabase.productCollection.find().toList();
-    
+
     // Print the raw result for debugging
     print('Raw products fetched: $result');
 
