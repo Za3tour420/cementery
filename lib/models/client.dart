@@ -6,14 +6,14 @@ class Client {
   ObjectId mongoId; // MongoDB _id field
   String type; // G, D ou NC
   String responsable;
-  Int telephone;
+  int telephone;
   String gouvernorat;
   String delegation;
   String adresse;
   String email;
   String cimenterie;
   List<ObjectId> produits;
-  Double prix;
+  double prix;
 
   Client({
     required this.mongoId,

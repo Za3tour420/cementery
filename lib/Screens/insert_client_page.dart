@@ -18,35 +18,6 @@ class InsertClientPage extends StatelessWidget {
 
   InsertClientPage({Key? key}) : super(key: key);
 
-  Future<void> createClient(Client client) async {
-    if (!client.isValid()) {
-      print('Invalid client data. Ensure all required fields are provided.');
-      return;
-    }
-
-    try {
-      await MongoDatabase.clientCollection.insert(client.toJson());
-      Fluttertoast.showToast(
-        msg: "Successfully inserted client ${client.responsable}",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    } catch (e) {
-      Fluttertoast.showToast(
-        msg: "Failed to insert client: $e",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
