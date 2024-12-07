@@ -1,3 +1,4 @@
+import 'package:cementery/Screens/VisiteForm.dart';
 import 'package:cementery/Screens/product_list_page.dart';
 import 'package:cementery/dbHelper/user_crud.dart';
 
@@ -24,10 +25,7 @@ class _MyHomePageState extends State<MainPage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     MapScreen(),
-    Text(
-      'Index 1: Visites',
-      style: optionStyle,
-    ),
+    VisiteForm(),
     Text(
       'Index 2: Clients',
       style: optionStyle,

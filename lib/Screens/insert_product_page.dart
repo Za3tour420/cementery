@@ -8,8 +8,6 @@ class InsertProductPage extends StatelessWidget {
   final TextEditingController idController = TextEditingController();
   final TextEditingController designationController = TextEditingController();
 
-  InsertProductPage({super.key});
-
   
 
   @override
