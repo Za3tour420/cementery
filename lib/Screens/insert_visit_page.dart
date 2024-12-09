@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import '../models/visit.dart';
+// ignore: unused_import
 import '../dbHelper/visit_crud.dart';
 
 class InsertVisitPage extends StatelessWidget {
@@ -103,4 +104,24 @@ class InsertVisitPage extends StatelessWidget {
       ),
     );
   }
+  
+  createVisit(Visit visit) async {
+  final Db db;
+  late final DbCollection visitCollection;
+
+  VisitCrud(db) {
+    visitCollection = db.collection('visits'); // The collection name in MongoDB
+  }
+    try {
+      final result = await visitCollection.insertOne(visit.toMap());
+      if (result.isSuccess) {
+        print("Visit inserted successfully with _id: ${result.document?['_id']}");
+      } else {
+        print("Failed to insert visit.");
+      }
+    } catch (e) {
+      print("Error inserting visit: $e");
+    }
+  }
 }
+

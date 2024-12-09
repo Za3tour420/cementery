@@ -84,8 +84,8 @@ class _MyHomePageState extends State<MainPage> {
                 ),
               ),
               decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
+    color: Colors.red, // Background color
+  ),
             ),
             Expanded(
               child: ListView(
@@ -93,7 +93,10 @@ class _MyHomePageState extends State<MainPage> {
                 children: [
                   ListTile(
                     leading: const Icon(Icons.map),
-                    title: const Text('Carte'),
+                    title: const Text('Carte',
+        style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.black87),),
                     selected: _selectedIndex == 0,
                     onTap: () {
                       widget.title = 'Carte';
@@ -103,7 +106,10 @@ class _MyHomePageState extends State<MainPage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.directions_walk),
-                    title: const Text('Visites'),
+                    title: const Text('Visites',
+        style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.black87),),
                     selected: _selectedIndex == 1,
                     onTap: () {
                       widget.title = 'Visites';
@@ -113,7 +119,10 @@ class _MyHomePageState extends State<MainPage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.people),
-                    title: const Text('Clients'),
+                    title: const Text('Clients',
+        style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.black87),),
                     selected: _selectedIndex == 2,
                     onTap: () {
                       widget.title = 'Clients';
@@ -123,7 +132,10 @@ class _MyHomePageState extends State<MainPage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.shopping_cart),
-                    title: const Text('Produits'),
+                    title: const Text('Produits',
+        style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.black87),),
                     selected: _selectedIndex == 3,
                     onTap: () {
                       widget.title = 'Produits';
@@ -133,7 +145,10 @@ class _MyHomePageState extends State<MainPage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.bar_chart),
-                    title: const Text('Statistique'),
+                    title: const Text('Statistique',
+        style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.black87),),
                     selected: _selectedIndex == 4,
                     onTap: () {
                       widget.title = 'Statistique';
@@ -143,7 +158,10 @@ class _MyHomePageState extends State<MainPage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.calendar_today),
-                    title: const Text('Planification'),
+                    title: const Text('Planification',
+        style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.black87),),
                     selected: _selectedIndex == 5,
                     onTap: () {
                       widget.title = 'Planification';

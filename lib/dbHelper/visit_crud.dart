@@ -11,18 +11,18 @@ class VisitCrud {
 
   // Create a new Visit in the database
   // In visit_crud.dart
-Future<void> createVisit(Visit visit) async {
-  try {
-    final result = await visitCollection.insertOne(visit.toMap());
-    if (result.isSuccess) {
-      print("Visit inserted successfully with _id: ${result.document?['_id']}");
-    } else {
-      print("Failed to insert visit.");
+  Future<void> createVisit(Visit visit) async {
+    try {
+      final result = await visitCollection.insertOne(visit.toMap());
+      if (result.isSuccess) {
+        print("Visit inserted successfully with _id: ${result.document?['_id']}");
+      } else {
+        print("Failed to insert visit.");
+      }
+    } catch (e) {
+      print("Error inserting visit: $e");
     }
-  } catch (e) {
-    print("Error inserting visit: $e");
   }
-}
 
 
   // Retrieve all Visits from the database

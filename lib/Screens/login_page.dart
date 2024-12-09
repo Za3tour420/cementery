@@ -55,9 +55,9 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: [
+                      children: const [
                         Cbox(),
-                        const Text('Se souvenir de moi'),
+                        Text('Se souvenir de moi'),
                       ],
                     ),
                     TextButton(
@@ -68,7 +68,10 @@ class LoginPage extends StatelessWidget {
                               builder: (context) => ForgotPasswordPage()),
                         );
                       },
-                      child: const Text('Mot de passe oublié ?'),
+                      child: const Text('Mot de passe oublié ?',
+        style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 15,
+        color: Colors.black87)),
                     ),
                   ],
                 ),
@@ -124,11 +127,12 @@ class LoginPage extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50), // Stretched button
-                    backgroundColor: Colors.blue, // Blue color
+                    backgroundColor: Colors.red.shade800, // Blue color
                   ),
                   child: const Text(
                     'Se connecter',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white,
+                    fontSize: 18),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -137,7 +141,11 @@ class LoginPage extends StatelessWidget {
                   children: [
                     const Text('Vous n\'avez pas de compte ?'),
                     TextButton(
-                      child: const Text('S\'inscrire'),
+                      child: const Text('S\'inscrire',
+        style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: Colors.black87),
+                       ), // Make the text bold),
                       onPressed: () {
                         Navigator.push(
                           context,

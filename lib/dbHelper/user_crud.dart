@@ -37,7 +37,7 @@ Future<void> createUser(User user) async {
   try {
     // Hash the user's password
     final hashedPassword = BCrypt.hashpw(user.password, BCrypt.gensalt());
-    user.password = hashedPassword as String;
+    user.password = hashedPassword;
     // Insert the user into MongoDB
     await MongoDatabase.userCollection.insert(user.toJson());
     print('User created successfully');

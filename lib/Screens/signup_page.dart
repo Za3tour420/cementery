@@ -18,18 +18,29 @@ class SignupPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text('Signup Page'),
+        title: Text('Créer un Compte',
+                style: TextStyle(color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 18),),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 12.0, right: 12.0),
         child: Column(
+          children: [
+             Image.asset(
+                  'assets/images/Sotacib.png',
+                  height: 200,
+                ),
+          Column(  
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            
+                const SizedBox(height: 20),
             TextField(
               controller: emailController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Email',
+                labelText: 'Saisir votre E-mail',
               ),
             ),
             SizedBox(height: 20),
@@ -37,7 +48,7 @@ class SignupPage extends StatelessWidget {
               controller: userController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Username',
+                labelText: 'Saisir Votre Nom',
               ),
             ),
             SizedBox(height: 20),
@@ -45,7 +56,7 @@ class SignupPage extends StatelessWidget {
               controller: passwordController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Password',
+                labelText: 'Saisir Votre Mot de Passe',
               ),
               obscureText: true,
             ),
@@ -54,7 +65,7 @@ class SignupPage extends StatelessWidget {
               controller: confirmPasswordController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Confirm Password',
+                labelText: 'Confirm Mot de Passe',
               ),
               obscureText: true,
             ),
@@ -70,7 +81,7 @@ class SignupPage extends StatelessWidget {
                   await createUser(user);
                   Navigator.pop(context);
                   Fluttertoast.showToast(
-                    msg: "Successfully created user ${user.username}",
+                    msg: "Créer Nouveau Utilisateur avec succées ${user.username}",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 1,
@@ -100,7 +111,7 @@ class SignupPage extends StatelessWidget {
                     passwordController.text.isEmpty ||
                     confirmPasswordController.text.isEmpty) {
                   Fluttertoast.showToast(
-                    msg: "Please fill all the fields",
+                    msg: "Tous les champs sont obligatoire",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 1,
@@ -112,16 +123,24 @@ class SignupPage extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50), // Stretched button
-                backgroundColor: Colors.blue, // Blue color
+                backgroundColor: Colors.red.shade800, // Blue color
               ),
               child: const Text(
-                'Creez un compte',
-                style: TextStyle(color: Colors.white),
+                'Créer un Compte',
+                style: TextStyle(color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18),
               ),
             ),
           ],
         ),
-      ),
+          ],
+        ) 
+      ,
+          
+         
+        
+      )
     );
   }
 }

@@ -16,7 +16,7 @@ class InsertClientPage extends StatelessWidget {
   final TextEditingController produitsController = TextEditingController(); // Comma-separated ObjectIds
   final TextEditingController prixController = TextEditingController();
 
-  InsertClientPage({Key? key}) : super(key: key);
+  InsertClientPage({super.key});
 
 
   @override

@@ -25,9 +25,9 @@ List<Client> clients = [
 
 class _MapScreenState extends State<MapScreen> {
   final MapController controller = MapController();
-  String dropdownValue1 = 'Option 1';
-  String dropdownValue2 = 'Option 1';
-  String dropdownValue3 = 'Option 1';
+  String dropdownValue1 = 'Gouvernorat';
+  String dropdownValue2 = 'Délégation';
+  String dropdownValue3 = 'Produits';
   bool checkboxValue1 = false;
   bool checkboxValue2 = false;
   bool checkboxValue3 = false;
@@ -49,13 +49,16 @@ class _MapScreenState extends State<MapScreen> {
                       dropdownValue1 = newValue!;
                     });
                   },
-                  items: <String>['Option 1', 'Option 2', 'Option 3']
+                  
+                  items: <String>['Gouvernorat', 'Tunis', 'Kairouan']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
                     );
                   }).toList(),
+                  style: TextStyle(color: Colors.white),  // Text color of the button
+  dropdownColor: Colors.red,  // Background color of the dropdown menu
                 ),
                 const SizedBox(width: 10),
                 DropdownButton<String>(
@@ -65,7 +68,7 @@ class _MapScreenState extends State<MapScreen> {
                       dropdownValue2 = newValue!;
                     });
                   },
-                  items: <String>['Option 1', 'Option 2', 'Option 3']
+                  items: <String>['Délégation', 'Carthage', 'Kairouan ville']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -81,7 +84,7 @@ class _MapScreenState extends State<MapScreen> {
                       dropdownValue3 = newValue!;
                     });
                   },
-                  items: <String>['Option 1', 'Option 2', 'Option 3']
+                  items: <String>['Produits', 'CEM I 42,5', 'CEM II 32,5']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -153,7 +156,7 @@ class _MapScreenState extends State<MapScreen> {
               TileLayer(
                 urlTemplate:
                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                subdomains: ['a', 'b', 'c'],
+                subdomains: const ['a', 'b', 'c'],
               ),
               MarkerLayer(
                 markers: [
